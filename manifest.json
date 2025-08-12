@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Exact Upload Date",
+  "version": "1.0",
+  "description": "Replaces YouTube's relative date with exact date/time.",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "permissions": [
+    "scripting"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
