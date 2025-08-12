@@ -2,10 +2,13 @@ console.log("YouTube Exact Upload Date: script running.");
 
 // Get exact upload date from meta tag
 function getExactDate() {
+
     const meta = document.querySelector('meta[itemprop="datePublished"]');
     if (!meta) return null;
+
     const isoDate = meta.getAttribute("content");
     if (!isoDate) return null;
+
     const dateObj = new Date(isoDate);
     return dateObj.toLocaleString(undefined, {
         year: "numeric",
@@ -18,17 +21,17 @@ function getExactDate() {
 
 // Try replacing any date-looking element on the watch page
 function replaceVisibleDate() {
-    const formatted = getExactDate() + "                                          ";
-    if (!formatted) {
+    const formattedDate = getExactDate() + "                                          ";
+    if (!formattedDate) {
         console.log("No formatted date found.");
         return false;
     }
 
-    const candidates = document.querySelectorAll('yt-formatted-string, span');
-    for (let el of candidates) {
-        if (el.textContent.match(/\byear|\bmonth|\bweek|\bday|\bhour|\bminute/i)) {
-            el.textContent = formatted;
-            console.log("Updated upload date:", formatted, "in element:", el);
+    const tokens = document.querySelectorAll('yt-formatted-string, span');
+    for (let token of tokens) {
+        if (token.textContent.match(/\byear|\bmonth|\bweek|\bday|\bhour|\bminute/i)) {
+            token.textContent = formattedDate;
+            console.log("Updated upload date:", formattedDate, "in element:", token);
             return true;
         }
     }
